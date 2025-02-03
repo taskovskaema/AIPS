@@ -158,12 +158,13 @@ public class Main {
         }
 
         String baranaData = input.next();
-        SLLNode<MapEntry<String, Ponudi>> entry= najdobraPonudi.search(baranaData);
 
-        if(entry==null){
+//      SLLNode<MapEntry<String, Ponudi>> entry= najdobraPonudi.search(baranaData); -> if( entry==null) .....
+
+        if(najdobraPonudi.search(baranaData)==null){
             System.out.println("No offers");
         }else{
-           System.out.println(najdobraPonudi.search(baranaData).element.value.vreme + " " + najdobraPonudi.search(baranaData).element.value.grad + " " + najdobraPonudi.search(baranaData).element.value.zarabotka);
+            System.out.println(najdobraPonudi.search(baranaData).element.value.vreme + " " + najdobraPonudi.search(baranaData).element.value.grad + " " + najdobraPonudi.search(baranaData).element.value.zarabotka);
         }
     }
 }
