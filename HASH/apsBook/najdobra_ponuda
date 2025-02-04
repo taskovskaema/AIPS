@@ -131,7 +131,6 @@ public class Main {
 
         int n = input.nextInt();
 
-        CBHT<String, Integer> cbhtPonudi = new CBHT<>(2 * n);
         CBHT<String, Ponudi> najdobraPonudi = new CBHT<>(2 * n);
 
         for (int i = 0; i < n; i++) {
@@ -139,12 +138,6 @@ public class Main {
             String vreme = input.next();
             String grad = input.next();
             int zarabotka = input.nextInt();
-
-            if (cbhtPonudi.search(data) != null) {
-                cbhtPonudi.search(data).element.value++;
-            } else {
-                cbhtPonudi.insert(data, 1);
-            }
 
             if (najdobraPonudi.search(data) != null) {
                 if (zarabotka > najdobraPonudi.search(data).element.value.zarabotka) {
