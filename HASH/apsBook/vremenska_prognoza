@@ -26,7 +26,7 @@ public class Main {
 
         int n = input.nextInt();
 
-        CBHT<String,Podatoci> prognoza=new CBHT<>(2*n); //hesh tabela pram
+        CBHT<String,Podatoci> prognoza=new CBHT<>(2*n); 
 
         for (int i = 0; i < n; i++) {
             String mesto = input.next();
@@ -34,8 +34,8 @@ public class Main {
             String kraj = input.next();
             float temperatura = input.nextFloat();
 
-            SLLNode<MapEntry<String,Podatoci>> node=prognoza.search(mesto);   //lista pram sho ke e vo hash tabelata
-                                                                            //naprajgo nodo da e key-to
+            SLLNode<MapEntry<String,Podatoci>> node=prognoza.search(mesto);  
+                                                                            
             Podatoci headNode;
             if(node!=null) {
                 headNode = node.element.value;
@@ -83,7 +83,7 @@ public class Main {
             }
         }
 
-/*HASHMAP- bez srednavrednost
+/*HASHMAP- bez sredna vrednost
         HashMap<String,String> heshh=new HashMap<>();
 
         for (int i = 0; i < n; i++) {
