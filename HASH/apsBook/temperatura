@@ -1,0 +1,49 @@
+
+class Podatoci{
+    public String mesto;
+    public String pocetok;
+    public String kraj;
+    public float temperatura;
+
+    public Podatoci(String mesto, String pocetok, String kraj, float temperatura) {
+        this.mesto = mesto;
+        this.pocetok = pocetok;
+        this.kraj = kraj;
+        this.temperatura = temperatura;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int n = input.nextInt();
+
+        CBHT<String,Podatoci> gradovi=new CBHT<>(2*n);
+
+        for (int i = 0; i < n; i++) {
+            String mesto= input.next();
+            String pocetok= input.next();
+            String kraj= input.next();
+            float temperatura= input.nextFloat();
+
+            if(gradovi.search(mesto)!=null){
+                if(temperatura>gradovi.search(mesto).element.value.temperatura){
+                    Podatoci podatoci=new Podatoci(mesto,pocetok,kraj,temperatura);
+                    gradovi.insert(mesto,podatoci);
+                }
+            }else{
+                Podatoci podatoci=new Podatoci(mesto,pocetok,kraj,temperatura);
+                gradovi.insert(mesto,podatoci);
+            }
+        }
+
+        String baranoMesto= input.next();
+
+        if(gradovi.search(baranoMesto)!=null){
+            System.out.println(gradovi.search(baranoMesto).element.value.mesto+": "+gradovi.search(baranoMesto).element.value.pocetok+" - "+gradovi.search(baranoMesto).element.value.kraj+" "+gradovi.search(baranoMesto).element.value.temperatura);
+        }else{
+            System.out.println("Error");
+        }
+    }
+}
