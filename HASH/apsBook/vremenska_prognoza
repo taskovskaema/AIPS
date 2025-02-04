@@ -1,0 +1,113 @@
+
+class Podatoci {
+    public String mesto;
+    public String pocetok;
+    public String kraj;
+    public float temperatura;
+    Podatoci next;
+
+    public Podatoci(String mesto, String pocetok, String kraj, float temperatura) {
+        this.mesto = mesto;
+        this.pocetok = pocetok;
+        this.kraj = kraj;
+        this.temperatura = temperatura;
+        this.next=null;
+    }
+
+    @Override
+    public String toString() {
+        return  pocetok + " - " + kraj +" "+ temperatura;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        int n = input.nextInt();
+
+        CBHT<String,Podatoci> prognoza=new CBHT<>(2*n); //hesh tabela pram
+
+        for (int i = 0; i < n; i++) {
+            String mesto = input.next();
+            String pocetok = input.next();
+            String kraj = input.next();
+            float temperatura = input.nextFloat();
+
+            SLLNode<MapEntry<String,Podatoci>> node=prognoza.search(mesto);   //lista pram sho ke e vo hash tabelata
+                                                                            //naprajgo nodo da e key-to
+            Podatoci headNode;
+            if(node!=null) {
+                headNode = node.element.value;
+            }else{
+                headNode=null;
+            }
+
+            Podatoci succNode=null;
+            Podatoci thisNode=headNode;
+
+                while(thisNode!=null){
+                    if(thisNode.pocetok.equals(pocetok) &&thisNode.kraj.equals(kraj)){
+                        thisNode.temperatura=(thisNode.temperatura+temperatura)/2;
+                        //sredna vrednost ako ima dva isti intervali
+                        break;
+                    }
+                    succNode=thisNode;
+                    thisNode=thisNode.next;
+                }
+
+            if(thisNode==null){
+                Podatoci podatoci=new Podatoci(mesto,pocetok,kraj,temperatura);
+                if(succNode!=null){
+                    succNode.next=podatoci;
+                }else{
+                    headNode=podatoci;
+                }
+
+                prognoza.insert(mesto,headNode);
+            }
+        }
+
+        String baranGrad=input.next();
+
+        SLLNode<MapEntry<String,Podatoci>> headNode = prognoza.search(baranGrad);
+
+        if(headNode==null){
+            System.out.println(baranGrad+": does not exist");
+        }else{
+            System.out.println(baranGrad+":");
+            Podatoci node=headNode.element.value;
+            while(node!=null){
+                System.out.println(node);
+                node=node.next;
+            }
+        }
+
+/*HASHMAP- bez srednavrednost
+        HashMap<String,String> heshh=new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            String mesto = input.next();
+            String pocetok = input.next();
+            String kraj = input.next();
+            float temperatura = input.nextFloat();
+
+            String inf=pocetok+" - "+kraj+" "+temperatura;
+
+            if(heshh.containsKey(mesto)){
+                heshh.put(mesto, heshh.get(mesto)+"\n"+ inf);
+            }else{
+                heshh.put(mesto,inf);
+            }
+
+        }
+
+        String baranGrad=input.next();
+        if(heshh.containsKey(baranGrad)){
+            System.out.println(heshh.get(baranGrad));
+        }else{
+            System.out.println(baranGrad+ ": does not exist");
+        }
+*/
+    }
+}
